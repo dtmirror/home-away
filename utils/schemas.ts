@@ -12,3 +12,14 @@ export const profileSchema = z.object({
         .min(2, {message: 'User name must be more than 20 characters'})
         .max(20, {message: 'User name must be less than 20 characters'}),
 });
+
+export function validateWithZodSchema<T>(schema: ZodSchema, data: unknown):T {
+    const result = schema.safeParse(data);
+
+    if (!result.success) {
+        const errors = result.error.errors.map((error) => error.message);
+        throw new Error(errors.join(', '));
+    }
+
+    return result.data as T;
+}
