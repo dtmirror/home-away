@@ -88,13 +88,18 @@ export const updateProfileAction = async (
     const user = await getAuthUser();
     try {
         const rawData = Object.fromEntries(formData);
-        const validatedFields = profileSchema.parse(rawData);
+        const validatedFields = profileSchema.safeParse(rawData);
+
+        if (!validatedFields.success) {
+          const errors = validatedFields.error.errors.map((error) => error.message);
+          throw new Error(errors.join(', '));
+        }
 
         await db.profile.update({
             where: {
                 clerkId: user.id,
             },
-            data: validatedFields,
+            data: validatedFields.data,
         });
 
         revalidatePath('/profile');
