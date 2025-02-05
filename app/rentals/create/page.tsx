@@ -5,6 +5,8 @@ import { SubmitButton } from '@/components/form/Buttons';
 import PriceInput from '../../../components/form/PriceInput';
 import CategoriesInput from '../../../components/form/CategoriesInput';
 import TextAreaInput from '../../../components/form/TextAreaInput';
+import CountriesInput from '../../../components/form/CountriesInput';
+import ImageInput from '../../../components/form/ImageInput';
 
 function CreatePropertyPage() {
   return (
@@ -30,6 +32,10 @@ function CreatePropertyPage() {
                     <CategoriesInput />
                 </div>
                 <TextAreaInput name='description' labelText='Description (10 - 1000 words)' />
+                <div className='grid sm:grid-cols-2 gap-8'>
+                    <CountriesInput />
+                    <ImageInput />
+                </div>
                 <SubmitButton text='Create Property' className='mt-12' />
             </FormContainer>
         </div>
