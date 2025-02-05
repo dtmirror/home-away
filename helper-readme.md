@@ -770,7 +770,7 @@ function CreateProfile() {
           <div className='grid gap-4 mt-4 '>
             <FormInput type='text' name='firstName' label='First Name' />
             <FormInput type='text' name='lastName' label='Last Name' />
-            <FormInput type='text' name='username' label='Username' />
+            <FormInput type='text' name='username' label='username' />
           </div>
           <SubmitButton text='Create Profile' className='mt-8' />
         </FormContainer>
@@ -1196,7 +1196,7 @@ async function ProfilePage() {
             <FormInput
               type='text'
               name='username'
-              label='Username'
+              label='username'
               defaultValue={profile.username}
             />
           </div>
