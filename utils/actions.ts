@@ -1,6 +1,6 @@
 'use server'
 
-import { profileSchema, validateWithZodSchema } from "./schemas";
+import { profileSchema, propertySchema, validateWithZodSchema } from "./schemas";
 import db from './db';
 import { auth, clerkClient, currentUser } from '@clerk/nextjs/server';
 import { redirect } from 'next/navigation';
@@ -26,7 +26,8 @@ const renderError = (error: unknown): {message: string} => {
 export const createProfileAction = async (
   prevState: any,
   formData: FormData
-) => {
+): Promise<{ message: string }> => {
+  const user = await getAuthUser();
   try {
     const user = await currentUser();
     if (!user) throw new Error('Please login to create a profile');
@@ -132,3 +133,20 @@ export const updateProfileImageAction = async (
     return renderError(error);
   }
 };
+
+export const createPropertyAction = async (
+  prevState: any,
+  formData: FormData
+): Promise<{ message: string }> => {
+
+  const user = await getAuthUser();
+
+  try {
+    const rawData = Object.fromEntries(formData);
+    const validatedFields = validateWithZodSchema(propertySchema, rawData);
+
+    return { message: 'Property created successfully' };
+  } catch (error) {
+    return renderError(error);
+  }
+}
