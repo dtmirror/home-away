@@ -5,6 +5,7 @@ import FavoriteToggleButton from '../../../components/card/FavoriteToggleButton'
 import ShareButton from '../../../components/properties/ShareButton';
 import ImageContainer from '../../../components/properties/ImageContainer';
 import PropertyRating from '../../../components/card/PropertyRating';
+import BookingCalendar from '../../../components/properties/booking/BookingCalendar';
 
 async function PropertyDetailsPage({ params }: { params: { id: string } }) {
   const property = await fetchPropertyDetails({ id: params.id });
@@ -31,7 +32,9 @@ async function PropertyDetailsPage({ params }: { params: { id: string } }) {
             <PropertyRating inPage={true} propertyId={property.id} />
           </div>
         </div>
-        <div className='lg:col-span-4 flex flex-col items-center'>calendar</div>
+        <div className='lg:col-span-4 flex flex-col items-end'>
+          <BookingCalendar />
+        </div>
       </section>
     </section>
   );
