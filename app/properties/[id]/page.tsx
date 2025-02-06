@@ -10,6 +10,7 @@ import PropertyDetails from '../../../components/properties/PropertyDetails';
 import UserInfo from '../../../components/properties/UserInfo';
 import Description from '../../../components/properties/Description';
 import { Separator } from '../../../components/ui/separator';
+import Amenities from '../../../components/properties/Amenities';
 
 async function PropertyDetailsPage({ params }: { params: { id: string } }) {
   const property = await fetchPropertyDetails({ id: params.id });
@@ -41,6 +42,7 @@ async function PropertyDetailsPage({ params }: { params: { id: string } }) {
           <UserInfo profile={{ profileImage, firstName }} />
           <Separator className='mt-4' />
           <Description description={property.description} />
+          <Amenities amenities={property.amenities} />
         </div>
         <div className='lg:col-span-4 flex flex-col items-end'>
           <BookingCalendar />
