@@ -12,7 +12,6 @@ import UserIcon from './UserIcon';
 import { links } from '@/utils/links';
 import SignOutLink from './SignOutLink';
 import { SignedIn, SignedOut, SignInButton, SignUpButton } from '@clerk/nextjs';
-import { User } from 'lucide-react';
 
 function LinksDropdown() {
   return (

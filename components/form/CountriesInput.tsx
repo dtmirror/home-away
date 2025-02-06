@@ -10,26 +10,33 @@ import {
 
 const name = 'country';
 
-function CountriesInput({defaultValue}: {defaultValue?: string}) {
+function CountriesInput({ defaultValue }: { defaultValue?: string }) {
   return (
     <div className='mb-2'>
-        <Label htmlFor={name} className='capitalize'>Country</Label>
-        <Select id={name} name={name} required defaultValue={defaultValue || formattedCountries[0].code}>
-            <SelectTrigger id={name}>
-                <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-                {formattedCountries.map((country) => (
-                    <SelectItem key={country.code} value={country.code}>
-                        <span className='flex items-center gap-2'>
-                            {country.flag} {country.name}
-                        </span>
-                    </SelectItem>
-                ))}
-            </SelectContent>
-        </Select>
-    </div>
-  )
-}
+      <Label htmlFor={name} className='capitalize'>
+        country
+      </Label>
 
-export default CountriesInput
+      <Select
+        defaultValue={defaultValue || formattedCountries[0].code}
+        name={name}
+        required>
+        <SelectTrigger id={name}>
+          <SelectValue />
+        </SelectTrigger>
+        <SelectContent>
+          {formattedCountries.map((item) => {
+            return (
+              <SelectItem key={item.code} value={item.code}>
+                <span className='flex items-center gap-2'>
+                  {item.flag} {item.name}
+                </span>
+              </SelectItem>
+            );
+          })}
+        </SelectContent>
+      </Select>
+    </div>
+  );
+}
+export default CountriesInput;

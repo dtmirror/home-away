@@ -6,7 +6,7 @@ import {
   validateWithZodSchema,
 } from './schemas';
 import db from './db';
-import { auth, clerkClient, currentUser } from '@clerk/nextjs/server';
+import { clerkClient, currentUser } from '@clerk/nextjs/server';
 import { redirect } from 'next/navigation';
 import { revalidatePath } from 'next/cache';
 import { imageSchema } from './schemas';
@@ -30,8 +30,7 @@ const renderError = (error: unknown): { message: string } => {
 export const createProfileAction = async (
   prevState: any,
   formData: FormData
-): Promise<{ message: string }> => {
-  const user = await getAuthUser();
+) => {
   try {
     const user = await currentUser();
     if (!user) throw new Error('Please login to create a profile');
