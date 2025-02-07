@@ -1,5 +1,8 @@
 import { redirect } from 'next/navigation';
-import { fetchPropertyDetails } from '../../../utils/actions';
+import {
+  fetchPropertyDetails,
+  findExistingReview,
+} from '../../../utils/actions';
 import BreadCrumbs from '../../../components/properties/BreadCrumbs';
 import FavoriteToggleButton from '../../../components/card/FavoriteToggleButton';
 import ShareButton from '../../../components/properties/ShareButton';
@@ -15,6 +18,7 @@ import dynamic from 'next/dynamic';
 import { Skeleton } from '../../../components/ui/skeleton';
 import SubmitReview from '../../../components/reviews/SubmitReview';
 import PropertyReviews from '../../../components/reviews/PropertyReviews';
+import { auth } from '@clerk/nextjs/server';
 
 const DynamicMap = dynamic(
   () => import('../../../components/properties/PropertyMap'),
@@ -32,6 +36,11 @@ async function PropertyDetailsPage({ params }: { params: { id: string } }) {
   const details = { baths, bedrooms, beds, guests };
   const firstName = property.profile.firstName;
   const profileImage = property.profile.profileImage;
+
+  const { userId } = auth();
+  const isOwner = property.profile.clerkId === userId;
+  const reviewDoesNotExist =
+    userId && !isOwner && !(await findExistingReview(userId, property.id));
 
   return (
     <section>
@@ -62,7 +71,7 @@ async function PropertyDetailsPage({ params }: { params: { id: string } }) {
           <BookingCalendar />
         </div>
       </section>
-      <SubmitReview propertyId={property.id} />
+      {reviewDoesNotExist && <SubmitReview propertyId={property.id} />}
       <PropertyReviews propertyId={property.id} />
     </section>
   );
