@@ -270,8 +270,7 @@ function Providers({ children }: { children: React.ReactNode }) {
       attribute='class'
       defaultTheme='system'
       enableSystem
-      disableTransitionOnChange
-    >
+      disableTransitionOnChange>
       {children}
     </ThemeProvider>
   );
@@ -419,11 +418,15 @@ NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=
 CLERK_SECRET_KEY=
 ```
 
-In Next.js, environment variables that start with NEXT*PUBLIC* are exposed to the browser. This means they can be accessed in your front-end code.
+In Next.js, environment variables that start with NEXT*PUBLIC* are exposed to
+the browser. This means they can be accessed in your front-end code.
 
-For example, NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY can be used in both server-side and client-side code.
+For example, NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY can be used in both server-side
+and client-side code.
 
-On the other hand, CLERK_SECRET_KEY is a server-side environment variable. It's not exposed to the browser, making it suitable for storing sensitive data like API secrets.
+On the other hand, CLERK_SECRET_KEY is a server-side environment variable. It's
+not exposed to the browser, making it suitable for storing sensitive data like
+API secrets.
 
 layout.tsx
 
@@ -493,8 +496,7 @@ function Providers({ children }: { children: React.ReactNode }) {
         attribute='class'
         defaultTheme='system'
         enableSystem
-        disableTransitionOnChange
-      >
+        disableTransitionOnChange>
         {children}
       </ThemeProvider>
     </>
@@ -688,8 +690,7 @@ export function SubmitButton({
       type='submit'
       disabled={pending}
       className={`capitalize ${className}`}
-      size='lg'
-    >
+      size='lg'>
       {pending ? (
         <>
           <ReloadIcon className='mr-2 h-4 w-4 animate-spin' />
@@ -783,7 +784,8 @@ export default CreateProfile;
 
 ### Zod
 
-Zod is a JavaScript library for building schemas and validating data, providing type safety and error handling.
+Zod is a JavaScript library for building schemas and validating data, providing
+type safety and error handling.
 
 ```sh
 npm install zod
@@ -839,10 +841,15 @@ export const createProfileAction = async (
 
 - install prisma vs-code extension
 
-Prisma ORM is a database toolkit that simplifies database access in web applications. It allows developers to interact with databases using a type-safe and auto-generated API, making database operations easier and more secure.
+Prisma ORM is a database toolkit that simplifies database access in web
+applications. It allows developers to interact with databases using a type-safe
+and auto-generated API, making database operations easier and more secure.
 
-- Prisma server: A standalone infrastructure component sitting on top of your database.
-- Prisma client: An auto-generated library that connects to the Prisma server and lets you read, write and stream data in your database. It is used for data access in your applications.
+- Prisma server: A standalone infrastructure component sitting on top of your
+  database.
+- Prisma client: An auto-generated library that connects to the Prisma server
+  and lets you read, write and stream data in your database. It is used for data
+  access in your applications.
 
 ```sh
 npm install prisma --save-dev
@@ -855,9 +862,13 @@ npx prisma init
 
 ### Setup Instance
 
-In development, the command next dev clears Node.js cache on run. This in turn initializes a new PrismaClient instance each time due to hot reloading that creates a connection to the database. This can quickly exhaust the database connections as each PrismaClient instance holds its own connection pool.
+In development, the command next dev clears Node.js cache on run. This in turn
+initializes a new PrismaClient instance each time due to hot reloading that
+creates a connection to the database. This can quickly exhaust the database
+connections as each PrismaClient instance holds its own connection pool.
 
-(Prisma Instance)[https://www.prisma.io/docs/guides/other/troubleshooting-orm/help-articles/nextjs-prisma-client-dev-practices#solution]
+(Prisma
+Instance)[https://www.prisma.io/docs/guides/other/troubleshooting-orm/help-articles/nextjs-prisma-client-dev-practices#solution]
 
 - create utils/db.ts
 
@@ -916,8 +927,11 @@ name String
 - npx prisma migrate dev --name init
 - npx prisma db push
 
-npx prisma migrate dev --name init creates a new migration for your database schema
-changes and applies it, while npx prisma db push directly updates the database schema without creating a migration. In the context of databases, a migration is set of operations, that modify the database schema, helping it evolve over time while preserving existing data.
+npx prisma migrate dev --name init creates a new migration for your database
+schema changes and applies it, while npx prisma db push directly updates the
+database schema without creating a migration. In the context of databases, a
+migration is set of operations, that modify the database schema, helping it
+evolve over time while preserving existing data.
 
 ```bash
 npx prisma db push
@@ -1368,8 +1382,7 @@ export function SubmitButton({
       type='submit'
       disabled={pending}
       className={`capitalize ${className}`}
-      size={size}
-    >
+      size={size}>
       {pending ? (
         <>
           <ReloadIcon className='mr-2 h-4 w-4 animate-spin' />
@@ -1430,8 +1443,7 @@ function ImageInputContainer(props: ImageInputContainerProps) {
       <Button
         variant='outline'
         size='sm'
-        onClick={() => setUpdateFormVisible((prev) => !prev)}
-      >
+        onClick={() => setUpdateFormVisible((prev) => !prev)}>
         {text}
       </Button>
       {isUpdateFormVisible && (
@@ -1526,10 +1538,13 @@ function validateFile() {
 }
 ```
 
-The .refine() method in Zod is used to add custom validation to a Zod schema. It takes two arguments:
+The .refine() method in Zod is used to add custom validation to a Zod schema. It
+takes two arguments:
 
-A function that takes a value and returns a boolean. This function is the validation rule. If it returns true, the validation passes. If it returns false, the validation fails.
-A string that is the error message to be returned when the validation fails.
+A function that takes a value and returns a boolean. This function is the
+validation rule. If it returns true, the validation passes. If it returns false,
+the validation fails. A string that is the error message to be returned when the
+validation fails.
 
 ### updateProfileImageAction
 
@@ -1929,8 +1944,7 @@ function CategoriesInput({ defaultValue }: { defaultValue?: string }) {
       <Select
         defaultValue={defaultValue || categories[0].label}
         name={name}
-        required
-      >
+        required>
         <SelectTrigger id={name}>
           <SelectValue />
         </SelectTrigger>
@@ -2044,8 +2058,7 @@ function CountriesInput({ defaultValue }: { defaultValue?: string }) {
       <Select
         defaultValue={defaultValue || formattedCountries[0].code}
         name={name}
-        required
-      >
+        required>
         <SelectTrigger id={name}>
           <SelectValue />
         </SelectTrigger>
@@ -2121,8 +2134,7 @@ function CounterInput({
               variant='outline'
               size='icon'
               type='button'
-              onClick={decreaseCount}
-            >
+              onClick={decreaseCount}>
               <LuMinus className='w-5 h-5 text-primary' />
             </Button>
             <span className='text-xl font-bold w-5 text-center'>{count}</span>
@@ -2130,8 +2142,7 @@ function CounterInput({
               variant='outline'
               size='icon'
               type='button'
-              onClick={increaseCount}
-            >
+              onClick={increaseCount}>
               <LuPlus className='w-5 h-5 text-primary' />
             </Button>
           </div>
@@ -2294,8 +2305,7 @@ function AmenitiesInput({ defaultValue }: { defaultValue?: Amenity[] }) {
             />
             <label
               htmlFor={amenity.name}
-              className='text-sm font-medium leading-none capitalize flex gap-x-2 items-center'
-            >
+              className='text-sm font-medium leading-none capitalize flex gap-x-2 items-center'>
               {amenity.name}
               <amenity.icon className='w-4 h-4' />
             </label>
@@ -2469,13 +2479,11 @@ function CategoriesList({
             return (
               <Link
                 key={item.label}
-                href={`/?category=${item.label}${searchTerm}`}
-              >
+                href={`/?category=${item.label}${searchTerm}`}>
                 <article
                   className={`p-3 flex flex-col items-center cursor-pointer duration-300  hover:text-primary w-[100px] ${
                     isActive ? 'text-primary' : ''
-                  }`}
-                >
+                  }`}>
                   <item.icon className='w-8 h-8 ' />
                   <p className='capitalize text-sm mt-1'>{item.label}</p>
                 </article>
@@ -2894,8 +2902,7 @@ export const CardSignInButton = () => {
         size='icon'
         variant='outline'
         className='p-2 cursor-pointer'
-        asChild
-      >
+        asChild>
         <FaRegHeart />
       </Button>
     </SignInButton>
@@ -2978,8 +2985,7 @@ export const CardSubmitButton = ({ isFavorite }: { isFavorite: boolean }) => {
       type='submit'
       size='icon'
       variant='outline'
-      className=' p-2 cursor-pointer'
-    >
+      className=' p-2 cursor-pointer'>
       {pending ? (
         <ReloadIcon className=' animate-spin' />
       ) : isFavorite ? (
@@ -3267,8 +3273,7 @@ function ShareButton({
         side='top'
         align='end'
         sideOffset={10}
-        className='flex items-center gap-x-2 justify-center w-full'
-      >
+        className='flex items-center gap-x-2 justify-center w-full'>
         <TwitterShareButton url={shareLink} title={name}>
           <TwitterIcon size={32} round />
         </TwitterShareButton>
@@ -3591,7 +3596,8 @@ export default Amenities;
 
 [React Leaflet](https://react-leaflet.js.org/)
 
-Leaflet makes direct calls to the DOM when it is loaded, therefore React Leaflet is not compatible with server-side rendering.
+Leaflet makes direct calls to the DOM when it is loaded, therefore React Leaflet
+is not compatible with server-side rendering.
 
 ```sh
 npm install react react-dom leaflet react-leaflet
@@ -3634,8 +3640,7 @@ function PropertyMap({ countryCode }: { countryCode: string }) {
         zoomControl={false}
         className='h-[50vh] rounded-lg relative z-0'
         center={location || defaultLocation}
-        zoom={7}
-      >
+        zoom={7}>
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
@@ -3643,8 +3648,7 @@ function PropertyMap({ countryCode }: { countryCode: string }) {
         <ZoomControl position='bottomright' />
         <Marker
           position={location || defaultLocation}
-          icon={markerIcon}
-        ></Marker>
+          icon={markerIcon}></Marker>
       </MapContainer>
     </div>
   );
@@ -3665,9 +3669,17 @@ const DynamicMap = dynamic(
 return <DynamicMap countryCode={property.country} />;
 ```
 
-Lazy Loading: Components wrapped with dynamic are lazy loaded. This means that the component code is not loaded until it is needed. For example, if you have a component that is only visible when a user clicks a button, you could use dynamic to ensure that the code for that component is not loaded until the button is clicked.
+Lazy Loading: Components wrapped with dynamic are lazy loaded. This means that
+the component code is not loaded until it is needed. For example, if you have a
+component that is only visible when a user clicks a button, you could use
+dynamic to ensure that the code for that component is not loaded until the
+button is clicked.
 
-Server Side Rendering (SSR) Control: By default, Next.js pre-renders every page. This means that it generates HTML for each page in advance, instead of doing it all on the client-side. However, with dynamic, you can control this behavior. You can choose to disable SSR for specific modules, which can be useful for modules that have client-side dependencies.
+Server Side Rendering (SSR) Control: By default, Next.js pre-renders every page.
+This means that it generates HTML for each page in advance, instead of doing it
+all on the client-side. However, with dynamic, you can control this behavior.
+You can choose to disable SSR for specific modules, which can be useful for
+modules that have client-side dependencies.
 
 ### Deploy
 
@@ -4061,8 +4073,7 @@ function Comment({ comment }: { comment: string }) {
         <Button
           variant='link'
           className='pl-0 text-muted-foreground'
-          onClick={toggleExpanded}
-        >
+          onClick={toggleExpanded}>
           {isExpanded ? 'Show Less' : 'Show More'}
         </Button>
       )}
@@ -4145,8 +4156,7 @@ export const IconButton = ({ actionType }: { actionType: actionType }) => {
       type='submit'
       size='icon'
       variant='link'
-      className='p-2 cursor-pointer'
-    >
+      className='p-2 cursor-pointer'>
       {pending ? <ReloadIcon className=' animate-spin' /> : renderIcon()}
     </Button>
   );
@@ -4276,13 +4286,20 @@ async function PropertyDetailsPage({ params }: { params: { id: string } }) {
 }
 ```
 
-Prisma's findUnique and findFirst methods are used to retrieve a single record from the database, but they have some differences in their behavior:
+Prisma's findUnique and findFirst methods are used to retrieve a single record
+from the database, but they have some differences in their behavior:
 
-- findUnique: This method is used when you want to retrieve a single record that matches a unique constraint or a primary key. If no record is found, it returns null.
+- findUnique: This method is used when you want to retrieve a single record that
+  matches a unique constraint or a primary key. If no record is found, it
+  returns null.
 
-- findFirst: This method is used when you want to retrieve a single record that matches a non-unique constraint. It can also be used with ordering and filtering. If no record is found, it returns null.
+- findFirst: This method is used when you want to retrieve a single record that
+  matches a non-unique constraint. It can also be used with ordering and
+  filtering. If no record is found, it returns null.
 
-In summary, use findUnique when you're sure the field you're querying by is unique, and use findFirst when you're querying by a non-unique field or need more complex queries with ordering and filtering.
+In summary, use findUnique when you're sure the field you're querying by is
+unique, and use findFirst when you're querying by a non-unique field or need
+more complex queries with ordering and filtering.
 
 ```ts
 const user = await prisma.user.findUnique({
@@ -5046,8 +5063,7 @@ async function BookingsPage() {
                 <TableCell>
                   <Link
                     href={`/properties/${propertyId}`}
-                    className='underline text-muted-foreground tracking-wide'
-                  >
+                    className='underline text-muted-foreground tracking-wide'>
                     {name}
                   </Link>
                 </TableCell>
@@ -5252,8 +5268,7 @@ async function RentalsPage() {
                 <TableCell>
                   <Link
                     href={`/properties/${propertyId}`}
-                    className='underline text-muted-foreground tracking-wide'
-                  >
+                    className='underline text-muted-foreground tracking-wide'>
                     {name}
                   </Link>
                 </TableCell>
@@ -5351,8 +5366,7 @@ async function EditRentalPage({ params }: { params: { id: string } }) {
           name={property.name}
           text='Update Image'
           action={updatePropertyImageAction}
-          image={property.image}
-        >
+          image={property.image}>
           <input type='hidden' name='id' value={property.id} />
         </ImageInputContainer>
 
@@ -5446,8 +5460,7 @@ function AmenitiesInput({ defaultValue }: { defaultValue?: Amenity[] }) {
               />
               <label
                 htmlFor={amenity.name}
-                className='text-sm font-medium leading-none capitalize flex gap-x-2 items-center'
-              >
+                className='text-sm font-medium leading-none capitalize flex gap-x-2 items-center'>
                 {amenity.name} <amenity.icon className='w-4 h-4' />
               </label>
             </div>
@@ -5641,8 +5654,7 @@ async function ReservationsPage() {
                 <TableCell>
                   <Link
                     href={`/properties/${propertyId}`}
-                    className='underline text-muted-foreground tracking-wide'
-                  >
+                    className='underline text-muted-foreground tracking-wide'>
                     {name}
                   </Link>
                 </TableCell>
@@ -6160,6 +6172,8 @@ export const GET = async (req: NextRequest) => {
   redirect('/bookings');
 };
 ```
+
+## get stripe card numbers: https://docs.stripe.com/testing
 
 ### Refactor Actions
 
