@@ -12,6 +12,7 @@ import { redirect } from 'next/navigation';
 import { revalidatePath } from 'next/cache';
 import { imageSchema } from './schemas';
 import { uploadImage } from './supabase';
+import { calculateTotals } from './calculateTotals';
 
 const getAuthUser = async () => {
   const user = await currentUser();
@@ -452,4 +453,50 @@ export const findExistingReview = async (
   } catch (error) {
     return renderError(error);
   }
+};
+
+export const createBookingAction = async (prevState: {
+  propertyId: string;
+  checkIn: Date;
+  checkOut: Date;
+}) => {
+  const user = await getAuthUser();
+  await db.booking.deleteMany({
+    where: {
+      profileId: user.id,
+      paymentStatus: false,
+    },
+  });
+  let bookingId: null | string = null;
+
+  const { propertyId, checkIn, checkOut } = prevState;
+  const property = await db.property.findUnique({
+    where: { id: propertyId },
+    select: { price: true },
+  });
+  if (!property) {
+    return { message: 'Property not found' };
+  }
+  const { orderTotal, totalNights } = calculateTotals({
+    checkIn,
+    checkOut,
+    price: property.price,
+  });
+
+  try {
+    const booking = await db.booking.create({
+      data: {
+        checkIn,
+        checkOut,
+        orderTotal,
+        totalNights,
+        profileId: user.id,
+        propertyId,
+      },
+    });
+    bookingId = booking.id;
+  } catch (error) {
+    return renderError(error);
+  }
+  redirect(`/checkout?bookingId=${bookingId}`);
 };
