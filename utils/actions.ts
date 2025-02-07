@@ -62,30 +62,38 @@ export const fetchProfileImage = async () => {
   const user = await currentUser();
   if (!user) return null;
 
-  const profile = await db.profile.findUnique({
-    where: {
-      clerkId: user.id,
-    },
-    select: {
-      profileImage: true,
-    },
-  });
+  try {
+    const profile = await db.profile.findUnique({
+      where: {
+        clerkId: user.id,
+      },
+      select: {
+        profileImage: true,
+      },
+    });
 
-  return profile?.profileImage;
+    return profile?.profileImage;
+  } catch (error) {
+    return renderError(error);
+  }
 };
 
 export const fetchProfile = async () => {
   const user = await getAuthUser();
 
-  const profile = await db.profile.findUnique({
-    where: {
-      clerkId: user.id,
-    },
-  });
+  try {
+    const profile = await db.profile.findUnique({
+      where: {
+        clerkId: user.id,
+      },
+    });
 
-  if (!profile) redirect('/profile/create');
+    if (!profile) redirect('/profile/create');
 
-  return profile;
+    return profile;
+  } catch (error) {
+    return renderError(error);
+  }
 };
 
 export const updateProfileAction = async (
@@ -175,38 +183,42 @@ export const fetchProperties = async ({
   search?: string;
   category?: string;
 }) => {
-  const properties = await db.property.findMany({
-    where: {
-      category,
-      OR: [
-        {
-          name: {
-            contains: search,
-            mode: 'insensitive',
+  try {
+    const properties = await db.property.findMany({
+      where: {
+        category,
+        OR: [
+          {
+            name: {
+              contains: search,
+              mode: 'insensitive',
+            },
           },
-        },
-        {
-          tagline: {
-            contains: search,
-            mode: 'insensitive',
+          {
+            tagline: {
+              contains: search,
+              mode: 'insensitive',
+            },
           },
-        },
-      ],
-    },
-    select: {
-      id: true,
-      name: true,
-      tagline: true,
-      country: true,
-      price: true,
-      image: true,
-    },
-    orderBy: {
-      createdAt: 'desc',
-    },
-  });
+        ],
+      },
+      select: {
+        id: true,
+        name: true,
+        tagline: true,
+        country: true,
+        price: true,
+        image: true,
+      },
+      orderBy: {
+        createdAt: 'desc',
+      },
+    });
 
-  return properties;
+    return properties;
+  } catch (error) {
+    return renderError(error);
+  }
 };
 
 export const fetchFavoriteId = async ({
@@ -269,25 +281,29 @@ export const toggleFavoriteAction = async (prevState: {
 export const fetchFavorites = async () => {
   const user = await getAuthUser();
 
-  const favorites = await db.favorite.findMany({
-    where: {
-      profileId: user.id,
-    },
-    select: {
-      property: {
-        select: {
-          id: true,
-          name: true,
-          tagline: true,
-          country: true,
-          price: true,
-          image: true,
+  try {
+    const favorites = await db.favorite.findMany({
+      where: {
+        profileId: user.id,
+      },
+      select: {
+        property: {
+          select: {
+            id: true,
+            name: true,
+            tagline: true,
+            country: true,
+            price: true,
+            image: true,
+          },
         },
       },
-    },
-  });
+    });
 
-  return favorites.map((favorite) => favorite.property);
+    return favorites.map((favorite) => favorite.property);
+  } catch (error) {
+    return renderError(error);
+  }
 };
 
 export const fetchPropertyDetails = async ({ id }: { id: string }) => {
@@ -323,47 +339,55 @@ export async function createReviewAction(prevState: any, formData: FormData) {
 }
 
 export async function fetchPropertyReviews(propertyId: string) {
-  const reviews = await db.review.findMany({
-    where: {
-      propertyId,
-    },
-    select: {
-      id: true,
-      rating: true,
-      comment: true,
-      profile: {
-        select: {
-          firstName: true,
-          profileImage: true,
+  try {
+    const reviews = await db.review.findMany({
+      where: {
+        propertyId,
+      },
+      select: {
+        id: true,
+        rating: true,
+        comment: true,
+        profile: {
+          select: {
+            firstName: true,
+            profileImage: true,
+          },
         },
       },
-    },
-    orderBy: {
-      createdAt: 'desc',
-    },
-  });
-  return reviews;
+      orderBy: {
+        createdAt: 'desc',
+      },
+    });
+    return reviews;
+  } catch (error) {
+    return renderError(error);
+  }
 }
 
 export const fetchPropertyReviewsByUser = async () => {
   const user = await getAuthUser();
-  const reviews = await db.review.findMany({
-    where: {
-      profileId: user.id,
-    },
-    select: {
-      id: true,
-      rating: true,
-      comment: true,
-      property: {
-        select: {
-          name: true,
-          image: true,
+  try {
+    const reviews = await db.review.findMany({
+      where: {
+        profileId: user.id,
+      },
+      select: {
+        id: true,
+        rating: true,
+        comment: true,
+        property: {
+          select: {
+            name: true,
+            image: true,
+          },
         },
       },
-    },
-  });
-  return reviews;
+    });
+    return reviews;
+  } catch (error) {
+    return renderError(error);
+  }
 };
 
 export const deleteReviewAction = async (prevState: { reviewId: string }) => {
@@ -414,10 +438,14 @@ export const findExistingReview = async (
   userId: string,
   propertyId: string
 ) => {
-  return db.review.findFirst({
-    where: {
-      profileId: userId,
-      propertyId: propertyId,
-    },
-  });
+  try {
+    return db.review.findFirst({
+      where: {
+        profileId: userId,
+        propertyId: propertyId,
+      },
+    });
+  } catch (error) {
+    return renderError(error);
+  }
 };
