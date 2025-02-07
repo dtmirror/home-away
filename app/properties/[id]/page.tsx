@@ -8,7 +8,6 @@ import FavoriteToggleButton from '../../../components/card/FavoriteToggleButton'
 import ShareButton from '../../../components/properties/ShareButton';
 import ImageContainer from '../../../components/properties/ImageContainer';
 import PropertyRating from '../../../components/card/PropertyRating';
-import BookingCalendar from '../../../components/properties/booking/BookingCalendar';
 import PropertyDetails from '../../../components/properties/PropertyDetails';
 import UserInfo from '../../../components/properties/UserInfo';
 import Description from '../../../components/properties/Description';
@@ -29,7 +28,7 @@ const DynamicMap = dynamic(
 );
 
 async function PropertyDetailsPage({ params }: { params: { id: string } }) {
-  const property = await fetchPropertyDetails({ id: params.id });
+  const property = await fetchPropertyDetails(params.id);
   if (!property) redirect('/');
 
   const { baths, bedrooms, beds, guests } = property;
@@ -67,9 +66,7 @@ async function PropertyDetailsPage({ params }: { params: { id: string } }) {
           <Separator className='mt-4' />
           <DynamicMap countryCode={property.country} />
         </div>
-        <div className='lg:col-span-4 flex flex-col items-end'>
-          <BookingCalendar />
-        </div>
+        <div className='lg:col-span-4 flex flex-col items-end'></div>
       </section>
       {reviewDoesNotExist && <SubmitReview propertyId={property.id} />}
       <PropertyReviews propertyId={property.id} />

@@ -306,17 +306,21 @@ export const fetchFavorites = async () => {
   }
 };
 
-export const fetchPropertyDetails = async ({ id }: { id: string }) => {
-  const property = await db.property.findUnique({
+export const fetchPropertyDetails = (id: string) => {
+  return db.property.findUnique({
     where: {
       id,
     },
     include: {
       profile: true,
+      bookings: {
+        select: {
+          checkIn: true,
+          checkOut: true,
+        },
+      },
     },
   });
-
-  return property;
 };
 
 export async function createReviewAction(prevState: any, formData: FormData) {
