@@ -4,7 +4,7 @@ import Title from '@/components/properties/Title';
 import ReviewCard from './ReviewCard';
 async function PropertyReviews({ propertyId }: { propertyId: string }) {
   const reviews = await fetchPropertyReviews(propertyId);
-  if (reviews.length < 1) return null;
+  if (!Array.isArray(reviews) || reviews.length < 1) return null;
   return (
     <div className='mt-8'>
       <Title text='Reviews' />

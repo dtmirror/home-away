@@ -4,7 +4,7 @@ import Image from 'next/image';
 
 async function UserIcon() {
   const profileImage = await fetchProfileImage();
-  if (profileImage) {
+  if (typeof profileImage === 'string') {
     return (
       <Image
         src={profileImage}
