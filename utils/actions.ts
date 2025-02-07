@@ -462,7 +462,7 @@ export const createBookingAction = async (prevState: {
   checkOut: Date;
 }) => {
   const user = await getAuthUser();
-  // let bookingId: null | string = null;
+  let bookingId: null | string = null;
 
   const { propertyId, checkIn, checkOut } = prevState;
   const property = await db.property.findUnique({
@@ -479,7 +479,7 @@ export const createBookingAction = async (prevState: {
   });
 
   try {
-    await db.booking.create({
+    const booking = await db.booking.create({
       data: {
         checkIn,
         checkOut,
@@ -489,12 +489,11 @@ export const createBookingAction = async (prevState: {
         propertyId,
       },
     });
-    // bookingId = booking.id;
+    bookingId = booking.id;
   } catch (error) {
     return renderError(error);
   }
-  // redirect(`/checkout?bookingId=${bookingId}`);
-  redirect(`/bookings`);
+  redirect(`/checkout?bookingId=${bookingId}`);
 };
 
 export const fetchBookings = async () => {
